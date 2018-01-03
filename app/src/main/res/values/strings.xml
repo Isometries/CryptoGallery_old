@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PhotoCrypt</string>
+    <string name="password_text">Enter decryption key</string>
+    <string name="get_file">Add Album</string>
+    <string name="title_activity_album_view">AlbumView</string>
+    <string name="get_photo">Add Photo</string>
+    <string name="action_settings">Settings</string>
+    <string name="Gallery_title">Albums</string>
+    <string name="delete_button">Delete Photo</string>
+</resources>
