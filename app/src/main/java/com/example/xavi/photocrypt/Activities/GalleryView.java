@@ -11,7 +11,7 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import com.example.xavi.photocrypt.Album;
-import com.example.xavi.photocrypt.PhotoCrypt;
+import com.example.xavi.photocrypt.helpers.PhotoCrypt;
 import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.WhenClicked;
 import java.io.IOException;
@@ -98,6 +98,8 @@ public class GalleryView extends AppCompatActivity {
                 photocrypt.addPhoto(uri, Integer.toString(this.albumCount+1), getApplicationContext());
 
             } catch (IOException | URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | BadPaddingException | NoSuchPaddingException | IllegalBlockSizeException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

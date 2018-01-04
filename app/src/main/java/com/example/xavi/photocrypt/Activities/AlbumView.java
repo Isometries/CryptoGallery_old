@@ -6,14 +6,16 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 
 import com.example.xavi.photocrypt.Album;
 import com.example.xavi.photocrypt.Photo;
-import com.example.xavi.photocrypt.PhotoCrypt;
+import com.example.xavi.photocrypt.helpers.PhotoCrypt;
 import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.WhenClicked;
 
@@ -36,6 +38,7 @@ public class AlbumView extends AppCompatActivity {
     private String title;
     private static final int READ_REQUEST_CODE = 42;
     private static Queue<Photo> deleteQueue = new LinkedList<>(); //maybe not the greatest solution to have this static
+    private static int Xpos, Ypos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,11 +46,19 @@ public class AlbumView extends AppCompatActivity {
         setContentView(R.layout.activity_album_view);
         Bundle extra_title = getIntent().getExtras();
         this.title = extra_title.getString("TITLE");
+
         try {
             populateView();
         } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | InvalidKeyException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+        deleteQueue = new LinkedList<>();
     }
 
     private void populateView() throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
@@ -106,14 +117,14 @@ public class AlbumView extends AppCompatActivity {
             try {
                 photocrypt.addPhoto(uri, this.title, getApplicationContext());
 
-            } catch (IOException | URISyntaxException | NoSuchAlgorithmException | InvalidAlgorithmParameterException | InvalidKeyException | NoSuchPaddingException | IllegalBlockSizeException | BadPaddingException e) {
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
         try {
             populateView();
-        } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | InvalidKeyException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -124,10 +135,29 @@ public class AlbumView extends AppCompatActivity {
         super.onResume();
         setContentView(R.layout.activity_album_view);
         try {
+            Log.w("onresume", Integer.toString(Ypos));
+
+            final ScrollView scroller = findViewById(R.id.scrollView2);
             populateView();
+            scroller.post(new Runnable() {
+                @Override
+                public void run() {
+                    scroller.scrollTo(Xpos, Ypos);
+                }
+            });
+
         } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void onStop()
+    {
+        super.onStop();
+        ScrollView scroller = findViewById(R.id.scrollView2);
+        Xpos = scroller.getScrollX();
+        Ypos = scroller.getScrollY();
     }
 
     public void getPhotoFromSystem(View v) //implement selecting multiple files

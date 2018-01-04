@@ -138,7 +138,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
             byte[] thumbnail;
 
             do {
-
                 title = cursor.getString(1);
                 location = cursor.getString(2);
                 thumbnail = Crypto.decrypt(cursor.getBlob(3));//new

@@ -37,15 +37,20 @@ public class StorageHandler {
         return result;
     }
 
-    public String movePhoto(Uri uri, String id, Context context) throws IOException, URISyntaxException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException //may need some work
+    public String movePhoto(Uri uri, String id, Context context) throws Exception //add exception messesge
     {
+        String newPath;
         String path = getRealPathFromURI(uri, context);
         File photo = new File(dir, id);
-        String newPath = photo.getCanonicalPath();
 
-        byte[] plainTxt = Crypto.getFile(path);
-        byte[] cipherTxt = Crypto.encrypt(plainTxt);
-        Crypto.writeFile(newPath, cipherTxt);
+        if (photo.exists()){ //checking if file name already exists
+            newPath = null;
+        }else {
+            newPath = photo.getCanonicalPath();
+            byte[] plainTxt = Crypto.getFile(path);
+            byte[] cipherTxt = Crypto.encrypt(plainTxt);
+            Crypto.writeFile(newPath, cipherTxt);
+        }
 
         return newPath;
     }
