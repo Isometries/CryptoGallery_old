@@ -20,7 +20,9 @@ The following are some important notes to keep in mind.
 # Planned
   
   
-  Upgrading cipher to AES-256 at a later date. 
+  Upgrading cipher to AES-256 at a later date.
+
   UI imrpovments
+  
   Bug fixes
   
