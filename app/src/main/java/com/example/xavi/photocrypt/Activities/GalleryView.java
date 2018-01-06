@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.GridLayout;
 import android.widget.ImageButton;
@@ -16,6 +17,7 @@ import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.WhenClicked;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.security.GeneralSecurityException;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -39,7 +41,8 @@ public class GalleryView extends AppCompatActivity {
         setContentView(R.layout.activity_gallery_view);
         try {
             populateView();
-        } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
+        } catch (GeneralSecurityException e) {
+
             e.printStackTrace();
         }
     }
@@ -52,14 +55,14 @@ public class GalleryView extends AppCompatActivity {
         setContentView(R.layout.activity_gallery_view);
         try {
             populateView();
-        } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
     }
 
 
 
-    public void populateView() throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException //next step here
+    public void populateView() throws GeneralSecurityException
     {
         GridLayout grid = findViewById(R.id.grid);
 
@@ -106,7 +109,7 @@ public class GalleryView extends AppCompatActivity {
 
         try {
             populateView();
-        } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | IllegalBlockSizeException | NoSuchAlgorithmException | BadPaddingException | InvalidKeyException e) {
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
     }

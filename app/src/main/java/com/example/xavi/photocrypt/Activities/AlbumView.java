@@ -19,25 +19,17 @@ import com.example.xavi.photocrypt.helpers.PhotoCrypt;
 import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.WhenClicked;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 
 public class AlbumView extends AppCompatActivity {
 
     private String title;
     private static final int READ_REQUEST_CODE = 42;
-    private static Queue<Photo> deleteQueue = new LinkedList<>(); //maybe not the greatest solution to have this static
+    private static Queue<Photo> photoQueue = new LinkedList<>(); //maybe not the greatest solution to have this static
     private static int Xpos, Ypos;
 
     @Override
@@ -49,7 +41,7 @@ public class AlbumView extends AppCompatActivity {
 
         try {
             populateView();
-        } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | BadPaddingException | IllegalBlockSizeException | InvalidKeyException e) {
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
     }
@@ -58,10 +50,10 @@ public class AlbumView extends AppCompatActivity {
     protected void onDestroy()
     {
         super.onDestroy();
-        deleteQueue = new LinkedList<>();
+        photoQueue = new LinkedList<>();
     }
 
-    private void populateView() throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    private void populateView() throws GeneralSecurityException {
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
 
         GridLayout grid = findViewById(R.id.grid2);
@@ -88,16 +80,16 @@ public class AlbumView extends AppCompatActivity {
 
     public static void addToDelete(Photo photo)
     {
-        deleteQueue.add(photo);
+        photoQueue.add(photo);
     }
 
     public void deleteAll(View v)
     {
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
 
-        while(!deleteQueue.isEmpty()){
-            Photo photo = deleteQueue.peek();
-            deleteQueue.remove();
+        while(!photoQueue.isEmpty()){
+            Photo photo = photoQueue.peek();
+            photoQueue.remove();
             photocrypt.deletePhoto(photo);
         }
 
@@ -146,9 +138,19 @@ public class AlbumView extends AppCompatActivity {
                 }
             });
 
-        } catch (NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
+        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
+    }
+
+    public void export(View v) throws Exception
+    {
+        PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
+        photocrypt.exportPhotos(photoQueue);
+        photoQueue = new LinkedList<>();
+        finish();
+        startActivity(getIntent());
+
     }
 
     @Override

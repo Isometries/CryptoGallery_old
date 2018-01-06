@@ -1,30 +1,18 @@
 package com.example.xavi.photocrypt.helpers;
 
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.util.Base64;
 import android.util.Log;
 
 import com.example.xavi.photocrypt.Album;
 import com.example.xavi.photocrypt.Photo;
-import com.example.xavi.photocrypt.helpers.DatabaseHandler;
-import com.example.xavi.photocrypt.helpers.StorageHandler;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.Queue;
 import java.util.Random;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 public class PhotoCrypt {
 
@@ -38,16 +26,21 @@ public class PhotoCrypt {
         this.databaseHandler = new DatabaseHandler(context);
     }
 
-    public ArrayList<Photo> getAlbum(String title) throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+    public ArrayList<Photo> getAlbum(String title) throws GeneralSecurityException {
         ArrayList<Photo> photos;
         photos = databaseHandler.getPhotobyAlbum(title);
         return photos;
     }
 
-    public ArrayList<Album> getAlbums() throws NoSuchPaddingException, InvalidKeyException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidAlgorithmParameterException {
+    public ArrayList<Album> getAlbums() throws GeneralSecurityException {
         ArrayList<Album> albums = databaseHandler.getAlbums();
 
         return albums;
+    }
+
+    public void exportPhotos(Queue<Photo> photoQueue) throws Exception
+    {
+        storageHandler.exportPhotos(photoQueue);
     }
 
     public static Bitmap byteArrayToBitmap(byte[] thumbnail)
@@ -70,6 +63,16 @@ public class PhotoCrypt {
         Log.w("location delete", location);
         storageHandler.deletePhoto(location);
         databaseHandler.deletePhotoByLocation(location);
+    }
+
+    public static Bitmap getBitmapfromLocation(String location) throws Exception
+    {
+        byte[] ciphertxt = Crypto.getFile(location);
+        byte[] plaintxt = Crypto.decrypt(ciphertxt);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(plaintxt,0,plaintxt.length);
+
+        return bitmap;
+
     }
 
     public void addPhoto(Uri uri, String title, Context context) throws Exception

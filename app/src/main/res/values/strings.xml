@@ -7,4 +7,6 @@
     <string name="action_settings">Settings</string>
     <string name="Gallery_title">Albums</string>
     <string name="delete_button">Delete Photo</string>
+    <string name="wrongkey">Incorrect Decryption Key</string>
+    <string name="export_button">Export</string>
 </resources>

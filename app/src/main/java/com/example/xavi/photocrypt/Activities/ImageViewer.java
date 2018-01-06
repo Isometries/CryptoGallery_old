@@ -5,9 +5,12 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Window;
+import android.view.WindowManager;
 
 import com.example.xavi.photocrypt.helpers.Crypto;
 import com.example.xavi.photocrypt.R;
+import com.example.xavi.photocrypt.helpers.PhotoCrypt;
 import com.jsibbold.zoomage.ZoomageView;
 
 import java.io.IOException;
@@ -26,9 +29,13 @@ public class ImageViewer extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature( Window.FEATURE_NO_TITLE );
+        getWindow().setFlags( WindowManager.LayoutParams.FLAG_FULLSCREEN,
+                WindowManager.LayoutParams.FLAG_FULLSCREEN );
         ActionBar actionBar = getSupportActionBar();
         actionBar.hide();
         setContentView(R.layout.activity_image_viewer);
+
         Bundle fromAlbumView = getIntent().getExtras();
         String location = null;
         if (fromAlbumView != null) {
@@ -36,19 +43,16 @@ public class ImageViewer extends AppCompatActivity {
         }
         try {
             showImage(location);
-        } catch (IOException | NoSuchPaddingException | InvalidAlgorithmParameterException | NoSuchAlgorithmException | IllegalBlockSizeException | BadPaddingException | InvalidKeyException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private void showImage(String location) throws IOException, NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException //name needs to change
+    private void showImage(String location) throws Exception
     {
         ZoomageView img = (ZoomageView) findViewById(R.id.image_view);
 
-        byte[] ciphertxt = Crypto.getFile(location);
-        byte[] plaintxt = Crypto.decrypt(ciphertxt);
-        Bitmap bitmap = BitmapFactory.decodeByteArray(plaintxt,0,plaintxt.length);
-        bitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+        Bitmap bitmap = PhotoCrypt.getBitmapfromLocation(location);
         img.setImageBitmap(bitmap);
     }
 }

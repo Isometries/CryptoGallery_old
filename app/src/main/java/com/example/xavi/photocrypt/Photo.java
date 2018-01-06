@@ -9,14 +9,14 @@ import java.io.ByteArrayOutputStream;
 public class Photo {
 
     private static final int THUMBSIZE = 448;
-    private long _id;
+    private int _id;
     private String title;
     private String location;
     private byte[] thumbnail;
 
     public Photo(){}
 
-    public Photo(long _id, String titles, String location, byte[] thumbnail)
+    public Photo(int _id, String titles, String location, byte[] thumbnail)
     {
         this._id = _id;
         this.title = titles;
@@ -43,7 +43,7 @@ public class Photo {
         return byteArray;
     }
 
-    public long getID()
+    public int getID()
     {
         return this._id;
     }

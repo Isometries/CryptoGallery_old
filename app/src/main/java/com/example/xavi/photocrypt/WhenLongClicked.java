@@ -6,7 +6,6 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.example.xavi.photocrypt.Activities.AlbumView;
-import com.example.xavi.photocrypt.Photo;
 
 public class WhenLongClicked implements View.OnLongClickListener{
 

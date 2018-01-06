@@ -4,18 +4,17 @@ import android.content.Context;
 import android.content.CursorLoader;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
+import android.util.Log;
+
+import com.example.xavi.photocrypt.Photo;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import java.io.FileOutputStream;
+import java.util.Queue;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipOutputStream;
 
 public class StorageHandler {
 
@@ -60,5 +59,35 @@ public class StorageHandler {
         File photo = new File(location);
         photo.delete();
     }
+
+    public void exportPhotos(Queue<Photo> queue) throws Exception //add button and test
+    {
+        Photo photo;
+        String location;
+        ZipEntry entry;
+        byte[] Encryptedbytestream;
+        byte[] Decryptedbytestream;
+
+        File zip = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/photos.zip");
+        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zip));
+
+        while (!queue.isEmpty()){
+            photo = queue.peek();
+            queue.remove();
+            location = photo.getLocation();
+
+            String fileName =  location.substring(location.lastIndexOf("/")+1);
+            Log.w("aaaaaa", String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
+
+            entry = new ZipEntry(fileName);
+            out.putNextEntry(entry);
+            Encryptedbytestream = Crypto.getFile(location);
+            Decryptedbytestream = Crypto.decrypt(Encryptedbytestream);
+            out.write(Decryptedbytestream);
+            out.closeEntry();
+        }
+        out.close();
+    }
+
 }
 

@@ -11,15 +11,8 @@ import android.util.Log;
 import com.example.xavi.photocrypt.Album;
 import com.example.xavi.photocrypt.Photo;
 
-import java.io.UnsupportedEncodingException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 public class DatabaseHandler extends SQLiteOpenHelper{
 
@@ -52,7 +45,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void addPhoto(Photo photo) throws NoSuchPaddingException, InvalidAlgorithmParameterException, UnsupportedEncodingException, IllegalBlockSizeException, BadPaddingException, NoSuchAlgorithmException, InvalidKeyException {
+    public void addPhoto(Photo photo) throws Exception {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
@@ -64,7 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     //album is title here
-    public ArrayList<Photo> getPhotobyAlbum(String album) throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public ArrayList<Photo> getPhotobyAlbum(String album) throws GeneralSecurityException {
 
         ArrayList<Photo> photos = new ArrayList<>();
         String title, location;
@@ -93,7 +86,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return photos;
     }
 
-    public ArrayList<Album> getAlbums() throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public ArrayList<Album> getAlbums() throws GeneralSecurityException {
         ArrayList<Album> albums = new ArrayList<>();
         ArrayList<String> album_titles = new ArrayList<>();
         String title;
@@ -107,7 +100,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
         while (!cursor.isAfterLast()){
             title = cursor.getString(1);
-            thumbnail = Crypto.decrypt(cursor.getBlob(3));//new
+            thumbnail = Crypto.decrypt(cursor.getBlob(3));
             album = new Album(title, thumbnail);
 
             if (!album_titles.contains(title)){
@@ -125,7 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
 
-    public ArrayList<Photo> getAllPhotos() throws NoSuchPaddingException, InvalidAlgorithmParameterException, NoSuchAlgorithmException, IllegalBlockSizeException, BadPaddingException, InvalidKeyException {
+    public ArrayList<Photo> getAllPhotos() throws GeneralSecurityException {
         ArrayList<Photo> photoList = new ArrayList<Photo>();
 
         String selectQuery = "SELECT * FROM " + TABLE_PHOTOS;
