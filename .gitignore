@@ -1,18 +1,17 @@
-bin/
-gen/
-app/extra/
-*.iml
+./bin/
+./gen/
+./app/extra/
+./*.iml
 
-.gradle/
-build/
+./.gradle/
+./build/
 /*/build/
 
-local.properties
+./local.properties
 
 *.log
 
-/.idea/workspace.xml
-/.idea/libraries
-.DS_Store
-/captures
-.idea 
+./.idea/workspace.xml
+./.idea/libraries
+./captures
+./.idea 
