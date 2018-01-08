@@ -1,7 +1,8 @@
 bin/
 gen/
 app/extra/
-*.iml
+PhotoCrypt.iml
+PhotoCrypt3.iml
 
 .gradle/
 ./build/
