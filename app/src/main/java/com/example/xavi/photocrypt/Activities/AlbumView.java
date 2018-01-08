@@ -13,8 +13,8 @@ import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 
-import com.example.xavi.photocrypt.Album;
 import com.example.xavi.photocrypt.Photo;
+import com.example.xavi.photocrypt.WhenLongClicked;
 import com.example.xavi.photocrypt.helpers.PhotoCrypt;
 import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.WhenClicked;
@@ -53,7 +53,8 @@ public class AlbumView extends AppCompatActivity {
         photoQueue = new LinkedList<>();
     }
 
-    private void populateView() throws GeneralSecurityException {
+    private void populateView() throws GeneralSecurityException
+    {
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
 
         GridLayout grid = findViewById(R.id.grid2);
@@ -66,7 +67,7 @@ public class AlbumView extends AppCompatActivity {
         {
             ImageButton btn = new ImageButton(this);
             btn.setOnClickListener(new WhenClicked(null, photos.get(i).getLocation(), getApplicationContext()));
-            btn.setOnLongClickListener(new Album.WhenLongClicked(photos.get(i)));
+            btn.setOnLongClickListener(new WhenLongClicked(photos.get(i)));
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(320,448);
             params.leftMargin = 35;
             params.bottomMargin = 25;
@@ -78,7 +79,7 @@ public class AlbumView extends AppCompatActivity {
         }
     }
 
-    public static void addToDelete(Photo photo)
+    public static void addToQueue(Photo photo)
     {
         photoQueue.add(photo);
     }
@@ -87,11 +88,7 @@ public class AlbumView extends AppCompatActivity {
     {
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
 
-        while(!photoQueue.isEmpty()){
-            Photo photo = photoQueue.peek();
-            photoQueue.remove();
-            photocrypt.deletePhoto(photo);
-        }
+        photocrypt.deletePhotos(photoQueue);
 
         finish();
         startActivity(getIntent());
@@ -113,7 +110,6 @@ public class AlbumView extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-
         try {
             populateView();
         } catch (Exception e) {

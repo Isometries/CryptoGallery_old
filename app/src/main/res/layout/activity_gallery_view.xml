@@ -23,6 +23,7 @@
         app:layout_constraintVertical_bias="0.008" />
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="368dp"
         android:layout_height="453dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -41,5 +42,19 @@
 
         </GridLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="70dp"
+        android:layout_height="38dp"
+        android:onClick="deleteAlbums"
+        android:text="@string/delete_album"
+        android:textSize="8sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toStartOf="@+id/get_file"
+        app:layout_constraintHorizontal_bias="0.033"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.333" />
 
 </android.support.constraint.ConstraintLayout>

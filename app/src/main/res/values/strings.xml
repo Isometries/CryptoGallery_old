@@ -9,4 +9,6 @@
     <string name="delete_button">Delete Photo</string>
     <string name="wrongkey">Incorrect Decryption Key</string>
     <string name="export_button">Export</string>
+    <string name="delete_album">Delete Album</string>
+
 </resources>

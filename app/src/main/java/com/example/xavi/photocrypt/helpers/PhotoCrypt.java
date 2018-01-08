@@ -11,6 +11,7 @@ import com.example.xavi.photocrypt.Photo;
 
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Random;
 
@@ -26,7 +27,8 @@ public class PhotoCrypt {
         this.databaseHandler = new DatabaseHandler(context);
     }
 
-    public ArrayList<Photo> getAlbum(String title) throws GeneralSecurityException {
+    public ArrayList<Photo> getAlbum(String title) throws GeneralSecurityException
+    {
         ArrayList<Photo> photos;
         photos = databaseHandler.getPhotobyAlbum(title);
         return photos;
@@ -57,10 +59,38 @@ public class PhotoCrypt {
         return count;
     }
 
+    public void deletePhotos(Queue<Photo> photoQueue)
+    {
+        while(!photoQueue.isEmpty()){
+            Photo photo = photoQueue.peek();
+            photoQueue.remove();
+            deletePhoto(photo);
+        }
+    }
+
+    public void deleteAlbum(Album album) throws GeneralSecurityException
+    {
+        String albumTitle = album.getTitle();
+        ArrayList<Photo> albumPhotos = getAlbum(albumTitle);
+
+        Queue<Photo> photoQueue = new LinkedList<>(albumPhotos);
+
+        deletePhotos(photoQueue);
+
+    }
+
+    public void deleteAlbums(Queue<Album> albumQueue) throws GeneralSecurityException
+    {
+        while (!albumQueue.isEmpty()){
+            Album album = albumQueue.peek();
+            albumQueue.remove();
+            deleteAlbum(album);
+        }
+    }
+
     public void deletePhoto(Photo photo)
     {
         String location = photo.getLocation();
-        Log.w("location delete", location);
         storageHandler.deletePhoto(location);
         databaseHandler.deletePhotoByLocation(location);
     }

@@ -42,7 +42,7 @@ public class Album {
         {
             if (v instanceof ImageButton) {
                 ((ImageButton)v).setColorFilter(Color.argb(150, 255, 255, 255));
-                AlbumView.addToDelete(photo);
+                AlbumView.addToQueue(photo);
             }
             return true;
         }
