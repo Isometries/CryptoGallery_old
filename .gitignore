@@ -6,14 +6,12 @@ app/extra/
 .gradle/
 ./build/
 /*/build/
+.idea/*
 
 local.properties
 
 *.log
 
 .gradle/4.1
-.idea/workspace.xml
-.idea/libraries
-./captures
-./.idea 
+captures
 build/*
