@@ -124,22 +124,36 @@ public class PhotoCrypt {
 
     }
 
-    public void addPhoto(Uri uri, String title, Context context) throws Exception
+    public static Bitmap getBitmapfromLocation(Uri uri, Context context) throws Exception
+    {
+        byte[] ciphertxt = Crypto.getFile(uri, context);
+        byte[] plaintxt = Crypto.decrypt(ciphertxt);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(plaintxt,0,plaintxt.length);
+
+        return bitmap;
+
+    }
+
+    public void addPhoto(Uri[] uri, String title, Context context) throws Exception
     {
         int _id;
         String id, newLocation;
         Random rand = new Random();
 
-        String location = StorageHandler.getRealPathFromURI(uri, context);
-        byte[] thumbnail = Photo.getThumbnail(location);
+        for (int i = 0; i < uri.length; i++){
 
-        do {
-            _id = rand.nextInt(100000);
-            id = Integer.toString(_id);
-            newLocation = storageHandler.movePhoto(uri, id, context);
-        } while(newLocation == null);
+            byte[] thumbnail = Photo.getThumbnail(uri[i], context);
 
-        Photo photo = new Photo(_id, title, newLocation, thumbnail);
-        databaseHandler.addPhoto(photo);
+            do {
+                _id = rand.nextInt(100000);
+                id = Integer.toString(_id);
+                newLocation = storageHandler.movePhoto(uri[i], id, context);
+            } while(newLocation == null);
+
+            Photo photo = new Photo(_id, title, newLocation, thumbnail);
+            databaseHandler.addPhoto(photo);
+        }
+
+
     }
 }

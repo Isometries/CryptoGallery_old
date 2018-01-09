@@ -44,9 +44,10 @@ public class StorageHandler {
         this.dir = context.getDir("data", Context.MODE_PRIVATE);
     }
 
-    public static String getRealPathFromURI(Uri contentUri, Context context) {
+    public static String getRealPathFromURI(Uri contentUri, Context context)
+    {
         String[] proj = { MediaStore.Images.Media.DATA };
-        CursorLoader loader = new CursorLoader(context, contentUri, proj, null, null, null);//dafuq is this
+        CursorLoader loader = new CursorLoader(context, contentUri, proj, null, null, null);
         Cursor cursor = loader.loadInBackground();
         int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
         cursor.moveToFirst();
@@ -58,14 +59,13 @@ public class StorageHandler {
     public String movePhoto(Uri uri, String id, Context context) throws Exception //add exception messesge
     {
         String newPath;
-        String path = getRealPathFromURI(uri, context);
         File photo = new File(dir, id);
 
         if (photo.exists()){ //checking if file name already exists
             newPath = null;
         }else {
             newPath = photo.getCanonicalPath();
-            byte[] plainTxt = Crypto.getFile(path);
+            byte[] plainTxt = Crypto.getFile(uri, context);
             byte[] cipherTxt = Crypto.encrypt(plainTxt);
             Crypto.writeFile(newPath, cipherTxt);
         }

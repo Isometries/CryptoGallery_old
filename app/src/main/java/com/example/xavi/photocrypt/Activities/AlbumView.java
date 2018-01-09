@@ -77,7 +77,6 @@ public class AlbumView extends AppCompatActivity {
 
         GridLayout grid = findViewById(R.id.grid2);
 
-        photocrypt.getAlbum(this.title);
         ArrayList<Photo> photos = photocrypt.getAlbum(this.title);
         int photoCount = photos.size();
 
@@ -116,13 +115,25 @@ public class AlbumView extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent resultData)
     {
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
-        Uri uri;
+        int n;
+        Uri uris[];
 
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            uri = resultData.getData();
+
+            if (resultData.getClipData() != null){
+                n = resultData.getClipData().getItemCount();
+                uris = new Uri[n];
+
+                for (int i = 0; i < n; i++){
+                    uris[i] = resultData.getClipData().getItemAt(i).getUri();
+                }
+            } else {
+                uris = new Uri[] {resultData.getData()};
+            }
+
 
             try {
-                photocrypt.addPhoto(uri, this.title, getApplicationContext());
+                photocrypt.addPhoto(uris, this.title, getApplicationContext());
 
             } catch (Exception e) {
                 e.printStackTrace();
@@ -183,7 +194,7 @@ public class AlbumView extends AppCompatActivity {
         Intent intent = new Intent();
         intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
         intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*)");
+        intent.setType("image/*");
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 }
