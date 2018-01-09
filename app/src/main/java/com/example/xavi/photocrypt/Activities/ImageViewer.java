@@ -1,30 +1,18 @@
 package com.example.xavi.photocrypt.Activities;
 
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.example.xavi.photocrypt.helpers.Crypto;
 import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.helpers.PhotoCrypt;
-import com.jsibbold.zoomage.ZoomageView;
-
-import java.io.IOException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
+import com.example.xavi.photocrypt.zoomage.ZoomageView;
 
 
 public class ImageViewer extends AppCompatActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
