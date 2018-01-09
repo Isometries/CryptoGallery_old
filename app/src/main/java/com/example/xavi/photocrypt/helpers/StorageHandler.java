@@ -65,11 +65,20 @@ public class StorageHandler {
         Photo photo;
         String location;
         ZipEntry entry;
+        File zip;
+        ZipOutputStream out;
+        int dupe = 0;
         byte[] Encryptedbytestream;
         byte[] Decryptedbytestream;
 
-        File zip = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/photos.zip");
-        ZipOutputStream out = new ZipOutputStream(new FileOutputStream(zip));
+        //maybe a sloppy way to avoid overwriting previous exports
+        do {
+            String n = Integer.toString(dupe);
+            zip = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS) + "/photos" + n + ".zip");
+            dupe++;
+        } while(zip.exists());
+
+        out = new ZipOutputStream(new FileOutputStream(zip));
 
         while (!queue.isEmpty()){
             photo = queue.peek();
@@ -77,7 +86,6 @@ public class StorageHandler {
             location = photo.getLocation();
 
             String fileName =  location.substring(location.lastIndexOf("/")+1);
-            Log.w("aaaaaa", String.valueOf(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)));
 
             entry = new ZipEntry(fileName);
             out.putNextEntry(entry);

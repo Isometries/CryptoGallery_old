@@ -141,11 +141,13 @@ public class AlbumView extends AppCompatActivity {
 
     public void export(View v) throws Exception
     {
-        PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
-        photocrypt.exportPhotos(photoQueue);
-        photoQueue = new LinkedList<>();
-        finish();
-        startActivity(getIntent());
+        if (!photoQueue.isEmpty()) {
+            PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
+            photocrypt.exportPhotos(photoQueue);
+            photoQueue = new LinkedList<>();
+            finish();
+            startActivity(getIntent());
+        }
 
     }
 

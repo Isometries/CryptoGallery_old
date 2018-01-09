@@ -101,8 +101,6 @@ public class GalleryView extends AppCompatActivity {
         albumQueue = new LinkedList<>();
     }
 
-
-
     public void populateView() throws GeneralSecurityException
     {
         GridLayout grid = findViewById(R.id.grid);
@@ -156,11 +154,13 @@ public class GalleryView extends AppCompatActivity {
         }
     }
 
-    public void getPhotoFromSystem(View v)//add multiple selections at once
+//  this is not a great solution, restricts locations as well as only one selection possible
+    public void getPhotoFromSystem(View v)
     {
-        Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_GET_CONTENT);
-        intent.setType("image/*)");
+//        Intent intent = new Intent();
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        intent.setType("image/*)");
+        Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
 }
