@@ -127,6 +127,19 @@ public class PhotoCrypt {
 
     }
 
+<<<<<<< HEAD
+=======
+    public static Bitmap getBitmapfromLocation(Uri uri, Context context) throws Exception
+    {
+        byte[] ciphertxt = Crypto.getFile(uri, context);
+        byte[] plaintxt = Crypto.decrypt(ciphertxt);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(plaintxt,0,plaintxt.length);
+
+        return bitmap;
+
+    }
+
+>>>>>>> 4fc476e6afed86b496234d94f824239b099ab8d7
     public void addPhoto(Uri[] uri, String title, Context context) throws Exception
     {
         int _id;
@@ -136,6 +149,7 @@ public class PhotoCrypt {
         for (int i = 0; i < uri.length; i++){
 
             byte[] thumbnail = Photo.getThumbnail(uri[i], context);
+<<<<<<< HEAD
 
             do {
                 _id = rand.nextInt(100000);
@@ -157,5 +171,19 @@ public class PhotoCrypt {
     {
         Photo photo = databaseHandler.getNextPhotoInAlbum(cursor);
         return photo;
+=======
+
+            do {
+                _id = rand.nextInt(100000);
+                id = Integer.toString(_id);
+                newLocation = storageHandler.movePhoto(uri[i], id, context);
+            } while(newLocation == null);
+
+            Photo photo = new Photo(_id, title, newLocation, thumbnail);
+            databaseHandler.addPhoto(photo);
+        }
+
+
+>>>>>>> 4fc476e6afed86b496234d94f824239b099ab8d7
     }
 }
