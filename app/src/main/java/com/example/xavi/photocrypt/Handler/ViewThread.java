@@ -58,6 +58,8 @@ public class ViewThread implements Runnable {
                 }
             } catch (GeneralSecurityException e) {
                 e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
             }
         } while (ok);
     }
