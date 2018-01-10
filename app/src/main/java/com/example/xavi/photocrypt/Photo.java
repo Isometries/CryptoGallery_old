@@ -18,10 +18,15 @@ package com.example.xavi.photocrypt;
  *along with this program; if not, see http://www.gnu.org/licenses/.
  */
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.ThumbnailUtils;
+import android.net.Uri;
+import android.provider.MediaStore;
+
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 public class Photo {
 
@@ -52,6 +57,19 @@ public class Photo {
     {
         byte[] byteArray;
         Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(BitmapFactory.decodeFile(location),
+                THUMBSIZE, THUMBSIZE);
+        ByteArrayOutputStream out_bytes = new ByteArrayOutputStream();
+        ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, out_bytes);
+        byteArray = out_bytes.toByteArray();
+
+        return byteArray;
+    }
+
+    public static byte[] getThumbnail(Uri uri, Context context) throws IOException
+    {
+        byte[] byteArray;
+
+        Bitmap ThumbImage = ThumbnailUtils.extractThumbnail(MediaStore.Images.Media.getBitmap(context.getContentResolver(), uri),
                 THUMBSIZE, THUMBSIZE);
         ByteArrayOutputStream out_bytes = new ByteArrayOutputStream();
         ThumbImage.compress(Bitmap.CompressFormat.PNG, 100, out_bytes);

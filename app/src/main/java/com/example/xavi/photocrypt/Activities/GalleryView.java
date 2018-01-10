@@ -18,7 +18,6 @@ package com.example.xavi.photocrypt.Activities;
  *along with this program; if not, see http://www.gnu.org/licenses/.
  */
 
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -38,19 +37,10 @@ import com.example.xavi.photocrypt.helpers.PhotoCrypt;
 import com.example.xavi.photocrypt.R;
 import com.example.xavi.photocrypt.WhenClicked;
 
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.security.GeneralSecurityException;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.InvalidKeyException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
 
 public class GalleryView extends AppCompatActivity {
@@ -78,19 +68,6 @@ public class GalleryView extends AppCompatActivity {
                         }
                     });
             alertDialog.show();
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void onResume()
-    {
-        super.onResume();
-        setContentView(R.layout.activity_gallery_view);
-        albumQueue = new LinkedList<>();
-        try {
-            populateView();
-        } catch (GeneralSecurityException e) {
             e.printStackTrace();
         }
     }
@@ -125,7 +102,6 @@ public class GalleryView extends AppCompatActivity {
         GridLayout grid = findViewById(R.id.grid);
 
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
-        photocrypt.getAlbums();
         ArrayList<Album> albums = photocrypt.getAlbums();
         this.albumCount = albums.size();
 
@@ -151,34 +127,36 @@ public class GalleryView extends AppCompatActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent resultData)
     {
         PhotoCrypt photocrypt = new PhotoCrypt(getApplicationContext());
-        Uri uri;
+        int n;
+        Uri uris[];
 
         if (requestCode == READ_REQUEST_CODE && resultCode == Activity.RESULT_OK){
-            uri = resultData.getData();
+            if (resultData.getClipData() != null){
+                n = resultData.getClipData().getItemCount();
+                uris = new Uri[n];
+
+                for (int i = 0; i < n; i++){
+                    uris[i] = resultData.getClipData().getItemAt(i).getUri();
+                }
+            } else {
+                uris = new Uri[] {resultData.getData()};
+            }
 
             try {
-                photocrypt.addPhoto(uri, Integer.toString(this.albumCount+1), getApplicationContext());
+                photocrypt.addPhoto(uris, Integer.toString(this.albumCount+1), getApplicationContext());
 
-            } catch (IOException | URISyntaxException | NoSuchAlgorithmException | InvalidKeyException | InvalidAlgorithmParameterException | BadPaddingException | NoSuchPaddingException | IllegalBlockSizeException e) {
-                e.printStackTrace();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        try {
-            populateView();
-        } catch (GeneralSecurityException e) {
-            e.printStackTrace();
-        }
+        finish();
+        startActivity(getIntent());
     }
 
-//  this is not a great solution, restricts locations as well as only one selection possible
+
     public void getPhotoFromSystem(View v)
     {
-//        Intent intent = new Intent();
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        intent.setType("image/*)");
         Intent intent = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(intent, READ_REQUEST_CODE);
     }
