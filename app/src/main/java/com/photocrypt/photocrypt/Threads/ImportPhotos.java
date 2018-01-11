@@ -1,12 +1,11 @@
-package com.example.xavi.photocrypt.Threads;
+package com.photocrypt.photocrypt.Threads;
 
+import android.content.Context;
+import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.example.xavi.photocrypt.ExportParams;
-import com.example.xavi.photocrypt.Photo;
-import com.example.xavi.photocrypt.helpers.StorageHandler;
-
-import java.util.Queue;
+import com.photocrypt.photocrypt.ImportParams;
+import com.photocrypt.photocrypt.helpers.PhotoCrypt;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -26,18 +25,22 @@ import java.util.Queue;
  *along with this program; if not, see http://www.gnu.org/licenses/.
  */
 
-public class ExportPhotos extends AsyncTask<ExportParams, Integer, Void> {
+public class ImportPhotos extends AsyncTask<ImportParams, Integer, Void> {
 
-    //should spwan progress window in future
     @Override
-    protected Void doInBackground(ExportParams... exportParams)
+    protected Void doInBackground(ImportParams... importParams)
     {
-        StorageHandler storageHandler = exportParams[0].getStorageHandler();
-        Queue<Photo> photoQueue = exportParams[0].getPhotos();
+        String title = importParams[0].getTitle();
+        Uri[] uris = importParams[0].getUris();
+        Context context = importParams[0].getContext();
+
+        PhotoCrypt photoCrypt = new PhotoCrypt(context);
 
         try {
-            storageHandler.exportPhotos(photoQueue);
+            photoCrypt.addPhoto(uris, title, context);
+
         } catch (Exception e) {
+
             e.printStackTrace();
         }
         return null;

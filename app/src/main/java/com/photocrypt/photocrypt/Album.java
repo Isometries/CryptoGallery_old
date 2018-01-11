@@ -1,4 +1,4 @@
-package com.example.xavi.photocrypt;
+package com.photocrypt.photocrypt;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -22,7 +22,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.example.xavi.photocrypt.Activities.AlbumView;
+import com.photocrypt.photocrypt.Activities.AlbumView;
 
 public class Album {
 

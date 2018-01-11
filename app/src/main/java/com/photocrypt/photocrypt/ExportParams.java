@@ -1,7 +1,7 @@
-package com.example.xavi.photocrypt;
+package com.photocrypt.photocrypt;
 
-import com.example.xavi.photocrypt.helpers.PhotoCrypt;
-import com.example.xavi.photocrypt.helpers.StorageHandler;
+import com.photocrypt.photocrypt.helpers.StorageHandler;
+import com.photocrypt.photocrypt.helpers.PhotoCrypt;
 
 import java.util.Queue;
 

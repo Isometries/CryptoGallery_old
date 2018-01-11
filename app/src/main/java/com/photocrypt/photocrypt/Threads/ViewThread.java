@@ -1,4 +1,4 @@
-package com.example.xavi.photocrypt.Threads;
+package com.photocrypt.photocrypt.Threads;
 
 
 import android.database.Cursor;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.example.xavi.photocrypt.Photo;
-import com.example.xavi.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.photocrypt.Photo;
+import com.photocrypt.photocrypt.helpers.PhotoCrypt;
 
 import java.security.GeneralSecurityException;
 

@@ -1,4 +1,4 @@
-package com.example.xavi.photocrypt.helpers;
+package com.photocrypt.photocrypt.helpers;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -26,11 +26,11 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
-import com.example.xavi.photocrypt.Album;
-import com.example.xavi.photocrypt.ExportParams;
-import com.example.xavi.photocrypt.Threads.ExportAlbums;
-import com.example.xavi.photocrypt.Threads.ExportPhotos;
-import com.example.xavi.photocrypt.Photo;
+import com.photocrypt.photocrypt.Album;
+import com.photocrypt.photocrypt.ExportParams;
+import com.photocrypt.photocrypt.Photo;
+import com.photocrypt.photocrypt.Threads.ExportAlbums;
+import com.photocrypt.photocrypt.Threads.ExportPhotos;
 
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;

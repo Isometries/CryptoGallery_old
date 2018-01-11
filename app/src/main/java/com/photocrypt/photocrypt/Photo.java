@@ -1,4 +1,4 @@
-package com.example.xavi.photocrypt;
+package com.photocrypt.photocrypt;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android

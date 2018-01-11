@@ -1,11 +1,11 @@
-package com.example.xavi.photocrypt.Threads;
+package com.photocrypt.photocrypt.Threads;
 
 import android.os.AsyncTask;
 
-import com.example.xavi.photocrypt.Album;
-import com.example.xavi.photocrypt.ExportParams;
-import com.example.xavi.photocrypt.Photo;
-import com.example.xavi.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.photocrypt.ExportParams;
+import com.photocrypt.photocrypt.Photo;
+import com.photocrypt.photocrypt.Album;
+import com.photocrypt.photocrypt.helpers.PhotoCrypt;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

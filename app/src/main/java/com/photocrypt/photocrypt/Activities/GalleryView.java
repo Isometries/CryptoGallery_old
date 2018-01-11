@@ -1,4 +1,4 @@
-package com.example.xavi.photocrypt.Activities;
+package com.photocrypt.photocrypt.Activities;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -31,11 +31,11 @@ import android.widget.GridLayout;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 
-import com.example.xavi.photocrypt.Album;
-import com.example.xavi.photocrypt.WhenLongClicked;
-import com.example.xavi.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.photocrypt.WhenLongClicked;
+import com.photocrypt.photocrypt.Album;
+import com.photocrypt.photocrypt.helpers.PhotoCrypt;
 import com.example.xavi.photocrypt.R;
-import com.example.xavi.photocrypt.WhenClicked;
+import com.photocrypt.photocrypt.WhenClicked;
 
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;

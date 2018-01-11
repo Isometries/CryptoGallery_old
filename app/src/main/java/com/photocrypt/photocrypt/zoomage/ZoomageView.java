@@ -1,4 +1,4 @@
-package com.example.xavi.photocrypt.zoomage;
+package com.photocrypt.photocrypt.zoomage;
 
 /**
  * Copyright 2016 Jeffrey Sibbold
