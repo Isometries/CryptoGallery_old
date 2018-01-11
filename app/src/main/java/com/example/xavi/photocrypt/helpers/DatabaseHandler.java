@@ -63,11 +63,13 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         onCreate(db);
     }
 
-    public void addPhoto(Photo photo) throws Exception {
+    public void addPhoto(Photo photo) throws Exception
+    {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
         values.put(KEY_TITLE, photo.getTitle());
+        Log.w("dbTitle", photo.getTitle());
         values.put(KEY_LOCATION, photo.getLocation());
         values.put(KEY_THUMBNAIL, Crypto.encrypt(photo.getThumbnail())); //new
         db.insert(TABLE_PHOTOS, null, values);
@@ -75,7 +77,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
     //album is title here
-    public ArrayList<Photo> getPhotobyAlbum(String album) throws GeneralSecurityException {
+    public ArrayList<Photo> getPhotobyAlbum(String album) throws GeneralSecurityException
+    {
 
         ArrayList<Photo> photos = new ArrayList<>();
         String title, location;
@@ -91,7 +94,6 @@ public class DatabaseHandler extends SQLiteOpenHelper{
 
             title = cursor.getString(1);
             location = cursor.getString(2);
-            Log.w("DB LOC ", location);
             thumbnail = Crypto.decrypt(cursor.getBlob(3)); //new
             Photo photo = new Photo(title, location, thumbnail);
             photos.add(photo);
@@ -104,7 +106,38 @@ public class DatabaseHandler extends SQLiteOpenHelper{
         return photos;
     }
 
-    public ArrayList<Album> getAlbums() throws GeneralSecurityException {
+    public Cursor getCursor(String album)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_PHOTOS, null, KEY_TITLE +"=?",
+                new String[] {album},null,null,null);
+
+        cursor.moveToFirst();
+        return cursor;
+    }
+
+    public Photo getNextPhotoInAlbum(Cursor cursor) throws GeneralSecurityException
+    {
+        String title, location;
+        byte[] thumbnail;
+
+        if (!cursor.isAfterLast()) {
+            title = cursor.getString(1);
+            location = cursor.getString(2);
+            thumbnail = Crypto.decrypt(cursor.getBlob(3)); //new
+            Photo photo = new Photo(title, location, thumbnail);
+            cursor.moveToNext();
+
+            return photo;
+        } else {
+
+            cursor.close();
+            return null;
+        }
+    }
+
+    public ArrayList<Album> getAlbums() throws GeneralSecurityException
+    {
         ArrayList<Album> albums = new ArrayList<>();
         ArrayList<String> album_titles = new ArrayList<>();
         String title;
@@ -136,7 +169,8 @@ public class DatabaseHandler extends SQLiteOpenHelper{
     }
 
 
-    public ArrayList<Photo> getAllPhotos() throws GeneralSecurityException {
+    public ArrayList<Photo> getAllPhotos() throws GeneralSecurityException
+    {
         ArrayList<Photo> photoList = new ArrayList<Photo>();
 
         String selectQuery = "SELECT * FROM " + TABLE_PHOTOS;

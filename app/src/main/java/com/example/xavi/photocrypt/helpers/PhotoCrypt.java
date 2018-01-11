@@ -20,12 +20,16 @@ package com.example.xavi.photocrypt.helpers;
 
 
 import android.content.Context;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.util.Log;
 
 import com.example.xavi.photocrypt.Album;
+import com.example.xavi.photocrypt.ExportParams;
+import com.example.xavi.photocrypt.Threads.ExportAlbums;
+import com.example.xavi.photocrypt.Threads.ExportPhotos;
 import com.example.xavi.photocrypt.Photo;
 
 import java.security.GeneralSecurityException;
@@ -48,20 +52,31 @@ public class PhotoCrypt {
 
     public ArrayList<Photo> getAlbum(String title) throws GeneralSecurityException
     {
-        ArrayList<Photo> photos;
-        photos = databaseHandler.getPhotobyAlbum(title);
+        ArrayList<Photo> photos = databaseHandler.getPhotobyAlbum(title);
         return photos;
     }
 
-    public ArrayList<Album> getAlbums() throws GeneralSecurityException {
-        ArrayList<Album> albums = databaseHandler.getAlbums();
+    public ArrayList<Album> getAlbums() throws GeneralSecurityException //really needs to be threaded
+    {
 
+        ArrayList<Album> albums = databaseHandler.getAlbums();
         return albums;
+    }
+
+    public void exportAlbum(Queue<Album> albums) throws GeneralSecurityException
+    {
+        ExportParams exportParams = new ExportParams(this, albums);
+        ExportAlbums exportThread = new ExportAlbums();
+
+        exportThread.execute(exportParams);
     }
 
     public void exportPhotos(Queue<Photo> photoQueue) throws Exception
     {
-        storageHandler.exportPhotos(photoQueue);
+        ExportParams exportParams = new ExportParams(storageHandler, photoQueue);
+        ExportPhotos exportThread = new ExportPhotos();
+
+        exportThread.execute(exportParams);
     }
 
     public static Bitmap byteArrayToBitmap(byte[] thumbnail)
@@ -124,22 +139,37 @@ public class PhotoCrypt {
 
     }
 
-    public void addPhoto(Uri uri, String title, Context context) throws Exception
+
+    public void addPhoto(Uri[] uri, String title, Context context) throws Exception
     {
         int _id;
         String id, newLocation;
         Random rand = new Random();
 
-        String location = StorageHandler.getRealPathFromURI(uri, context);
-        byte[] thumbnail = Photo.getThumbnail(location);
+        for (int i = 0; i < uri.length; i++){
+            Log.w("uri length", Integer.toString(uri.length));
 
-        do {
-            _id = rand.nextInt(100000);
-            id = Integer.toString(_id);
-            newLocation = storageHandler.movePhoto(uri, id, context);
-        } while(newLocation == null);
+            byte[] thumbnail = Photo.getThumbnail(uri[i], context);
 
-        Photo photo = new Photo(_id, title, newLocation, thumbnail);
-        databaseHandler.addPhoto(photo);
+            do {
+                _id = rand.nextInt(100000);
+                id = Integer.toString(_id);
+                newLocation = storageHandler.movePhoto(uri[i], id, context);
+            } while(newLocation == null);
+
+            Photo photo = new Photo(_id, title, newLocation, thumbnail);
+            databaseHandler.addPhoto(photo);
+        }
+    }
+
+    public Cursor getCursor(String album)
+    {
+        return databaseHandler.getCursor(album);
+    }
+
+    public Photo getNextPhoto(Cursor cursor) throws GeneralSecurityException
+    {
+        Photo photo = databaseHandler.getNextPhotoInAlbum(cursor);
+        return photo;
     }
 }

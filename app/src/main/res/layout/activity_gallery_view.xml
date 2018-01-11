@@ -57,4 +57,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.333" />
 
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="70dp"
+        android:layout_height="38dp"
+        android:onClick="exportAlbums"
+        android:text="@string/export_button"
+        android:textSize="10sp"
+        app:layout_constraintBottom_toTopOf="@+id/scrollView3"
+        app:layout_constraintEnd_toStartOf="@+id/get_file"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

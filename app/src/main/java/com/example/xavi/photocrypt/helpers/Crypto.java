@@ -19,6 +19,7 @@ package com.example.xavi.photocrypt.helpers;
  */
 
 import android.content.Context;
+import android.net.Uri;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
@@ -80,6 +81,21 @@ public class Crypto {
         }
 
         buffer.flush();
+
+        return buffer.toByteArray();
+    }
+
+    public static byte[] getFile(Uri uri, Context context) throws IOException
+    {
+        InputStream in = context.getContentResolver().openInputStream(uri);
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+
+        int r;
+        byte[] data = new byte[BLOCK_SIZE];
+
+        while ((r = in.read(data,0,  BLOCK_SIZE)) != -1){
+            buffer.write(data,0,r);
+        }
 
         return buffer.toByteArray();
     }

@@ -20,7 +20,6 @@ package com.example.xavi.photocrypt;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 
 import com.example.xavi.photocrypt.Activities.AlbumView;
@@ -48,7 +47,6 @@ public class WhenClicked implements View.OnClickListener{
         } else {
             Intent image = new Intent(v.getContext(), ImageViewer.class);
             image.putExtra("LOCATION", this.location);
-            Log.w("img loc", this.location);
             v.getContext().startActivity(image);
         }
     }
