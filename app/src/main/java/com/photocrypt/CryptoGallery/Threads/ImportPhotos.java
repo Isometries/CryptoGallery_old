@@ -1,11 +1,11 @@
-package com.photocrypt.photocrypt.Threads;
+package com.photocrypt.CryptoGallery.Threads;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 
-import com.photocrypt.photocrypt.ImportParams;
-import com.photocrypt.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.CryptoGallery.ImportParams;
+import com.photocrypt.CryptoGallery.helpers.PhotoCrypt;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android

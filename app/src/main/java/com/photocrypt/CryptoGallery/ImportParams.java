@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt;
+package com.photocrypt.CryptoGallery;
 
 
 import android.content.Context;

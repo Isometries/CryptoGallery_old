@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.Threads;
+package com.photocrypt.CryptoGallery.Threads;
 
 
 import android.database.Cursor;
@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 
-import com.photocrypt.photocrypt.Photo;
-import com.photocrypt.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.CryptoGallery.Photo;
+import com.photocrypt.CryptoGallery.helpers.PhotoCrypt;
 
 import java.security.GeneralSecurityException;
 

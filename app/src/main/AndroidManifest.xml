@@ -14,19 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.photocrypt.photocrypt.Activities.MainActivity">
+        <activity android:name="com.photocrypt.CryptoGallery.Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.photocrypt.photocrypt.Activities.GalleryView" />
+        <activity android:name="com.photocrypt.CryptoGallery.Activities.GalleryView" />
         <activity
-            android:name="com.photocrypt.photocrypt.Activities.AlbumView"
+            android:name="com.photocrypt.CryptoGallery.Activities.AlbumView"
             android:label="@string/title_activity_album_view"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name="com.photocrypt.photocrypt.Activities.ImageViewer"></activity>
+        <activity android:name="com.photocrypt.CryptoGallery.Activities.ImageViewer"></activity>
     </application>
 
 </manifest>

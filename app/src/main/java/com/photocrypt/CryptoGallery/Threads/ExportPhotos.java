@@ -1,10 +1,10 @@
-package com.photocrypt.photocrypt.Threads;
+package com.photocrypt.CryptoGallery.Threads;
 
 import android.os.AsyncTask;
 
-import com.photocrypt.photocrypt.ExportParams;
-import com.photocrypt.photocrypt.Photo;
-import com.photocrypt.photocrypt.helpers.StorageHandler;
+import com.photocrypt.CryptoGallery.ExportParams;
+import com.photocrypt.CryptoGallery.Photo;
+import com.photocrypt.CryptoGallery.helpers.StorageHandler;
 
 import java.util.Queue;
 

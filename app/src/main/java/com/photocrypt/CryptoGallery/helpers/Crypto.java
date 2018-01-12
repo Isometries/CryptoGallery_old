@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.helpers;
+package com.photocrypt.CryptoGallery.helpers;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android

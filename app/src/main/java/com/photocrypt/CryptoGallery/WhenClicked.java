@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt;
+package com.photocrypt.CryptoGallery;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -22,8 +22,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.view.View;
 
-import com.photocrypt.photocrypt.Activities.AlbumView;
-import com.photocrypt.photocrypt.Activities.ImageViewer;
+import com.photocrypt.CryptoGallery.Activities.AlbumView;
+import com.photocrypt.CryptoGallery.Activities.ImageViewer;
 
 public class WhenClicked implements View.OnClickListener{
 

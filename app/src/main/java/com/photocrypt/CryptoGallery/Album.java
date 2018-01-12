@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt;
+package com.photocrypt.CryptoGallery;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -22,39 +22,46 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageButton;
 
-import com.photocrypt.photocrypt.Activities.AlbumView;
-import com.photocrypt.photocrypt.Activities.GalleryView;
+import com.photocrypt.CryptoGallery.Activities.AlbumView;
 
-public class WhenLongClicked implements View.OnLongClickListener{
+public class Album {
 
-    private Photo photo;
-    private Album album;
+    private String title;
+    private byte[] thumbnail;
 
-    public WhenLongClicked(Photo photo)
+    public Album(String title, byte[] thumbnail)
     {
-        this.photo = photo;
+        this.title = title;
+        this.thumbnail = thumbnail;
     }
 
-    public WhenLongClicked(Album album)
+    public String getTitle()
     {
-        this.album = album;
+        return this.title;
     }
 
-    @Override
-    public boolean onLongClick(View v)
+    public byte[] getThumbnail()
     {
-        if (v instanceof ImageButton) {
+        return this.thumbnail;
+    }
 
-            ((ImageButton)v).setColorFilter(Color.argb(150, 255, 255, 255));
+    public static class WhenLongClicked implements View.OnLongClickListener{
 
-            if (this.photo != null){
-                AlbumView.addToQueue(this.photo);
-            }
-            if (this.album != null)
-            {
-                GalleryView.addToQueue(this.album);
-            }
+        private Photo photo;
+
+        public WhenLongClicked(Photo photo)
+        {
+            this.photo = photo;
         }
-        return true;
+
+        @Override
+        public boolean onLongClick(View v)
+        {
+            if (v instanceof ImageButton) {
+                ((ImageButton)v).setColorFilter(Color.argb(150, 255, 255, 255));
+                AlbumView.addToQueue(photo);
+            }
+            return true;
+        }
     }
 }

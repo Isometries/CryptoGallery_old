@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.Activities;
+package com.photocrypt.CryptoGallery.Activities;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -29,7 +29,7 @@ import android.view.View;
 import android.widget.TextView;
 
 
-import com.photocrypt.photocrypt.helpers.Crypto;
+import com.photocrypt.CryptoGallery.helpers.Crypto;
 import com.example.xavi.photocrypt.R;
 
 import java.io.IOException;

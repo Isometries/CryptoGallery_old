@@ -1,7 +1,7 @@
-package com.photocrypt.photocrypt;
+package com.photocrypt.CryptoGallery;
 
-import com.photocrypt.photocrypt.helpers.StorageHandler;
-import com.photocrypt.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.CryptoGallery.helpers.StorageHandler;
+import com.photocrypt.CryptoGallery.helpers.PhotoCrypt;
 
 import java.util.Queue;
 

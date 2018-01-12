@@ -4,7 +4,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.photocrypt.photocrypt"
+        applicationId "com.photocrypt.CryptoGallery"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 1

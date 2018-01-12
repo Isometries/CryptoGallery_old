@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.zoomage;
+package com.photocrypt.CryptoGallery.zoomage;
 
 /**
  * Copyright 2016 Jeffrey Sibbold

@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.helpers;
+package com.photocrypt.CryptoGallery.helpers;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -26,7 +26,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 
-import com.photocrypt.photocrypt.Photo;
+import com.photocrypt.CryptoGallery.Photo;
 
 import java.io.File;
 import java.io.FileOutputStream;

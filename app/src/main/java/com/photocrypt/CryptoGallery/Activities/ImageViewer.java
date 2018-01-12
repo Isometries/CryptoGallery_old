@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.Activities;
+package com.photocrypt.CryptoGallery.Activities;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -25,9 +25,9 @@ import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.photocrypt.photocrypt.zoomage.ZoomageView;
+import com.photocrypt.CryptoGallery.zoomage.ZoomageView;
 import com.example.xavi.photocrypt.R;
-import com.photocrypt.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.CryptoGallery.helpers.PhotoCrypt;
 
 
 public class ImageViewer extends AppCompatActivity {

@@ -1,11 +1,11 @@
-package com.photocrypt.photocrypt.Threads;
+package com.photocrypt.CryptoGallery.Threads;
 
 import android.os.AsyncTask;
 
-import com.photocrypt.photocrypt.ExportParams;
-import com.photocrypt.photocrypt.Photo;
-import com.photocrypt.photocrypt.Album;
-import com.photocrypt.photocrypt.helpers.PhotoCrypt;
+import com.photocrypt.CryptoGallery.ExportParams;
+import com.photocrypt.CryptoGallery.Photo;
+import com.photocrypt.CryptoGallery.Album;
+import com.photocrypt.CryptoGallery.helpers.PhotoCrypt;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

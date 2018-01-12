@@ -7,7 +7,7 @@
     android:background="@color/img_backgroud"
     tools:context="com.example.xavi.photocrypt.com.example.photocrypt.photocrypt.Activities.ImageViewer">
 
-    <com.photocrypt.photocrypt.zoomage.ZoomageView
+    <com.photocrypt.CryptoGallery.zoomage.ZoomageView
         android:id="@+id/image_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

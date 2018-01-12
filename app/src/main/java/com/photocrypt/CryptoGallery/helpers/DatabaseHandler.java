@@ -1,4 +1,4 @@
-package com.photocrypt.photocrypt.helpers;
+package com.photocrypt.CryptoGallery.helpers;
 
 /*
  *PhotoCrypt - an encrypted gallery for Android
@@ -26,8 +26,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-import com.photocrypt.photocrypt.Album;
-import com.photocrypt.photocrypt.Photo;
+import com.photocrypt.CryptoGallery.Album;
+import com.photocrypt.CryptoGallery.Photo;
 
 import java.security.GeneralSecurityException;
 import java.util.ArrayList;
