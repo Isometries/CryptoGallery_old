@@ -1,6 +1,6 @@
 # CryptoGallery
 
-CryptoGallery t is a simple way to store and view encrypted images in android.
+CryptoGallery is a simple way to store and view encrypted images in android.
 
 # Overview
 
@@ -13,7 +13,7 @@ Before using, please keep in mind the following:
 
   - It is highly recommended to back-up any images before importing them to the app. If your key is lost, or a bug occurs, you will lose all saved data.
 
-  - Currently the app is based around the standard java librairy implemenation of AES-128 CBC. There are later plans to upgrade to AES 256.
+  - Currently the app is based around the standard java library implemenation of AES-128 CBC. There are later plans to upgrade to AES 256.
 
   - Deleting photos
 
@@ -37,7 +37,7 @@ Before using, please keep in mind the following:
 
   The source may be obtained either through `git clone https://gitlab.com/Isometricmap/PhotoCrypt.git`, or by downloading and unzipping the file.
 
-    - Open the source with android studio, then click `Build` -> `Build APK(s)`.
+  - Open the source with android studio, then click `Build` -> `Build APK(s)`.
 
 # Dowloading the APK
 
