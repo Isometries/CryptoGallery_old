@@ -33,6 +33,16 @@ Before using, please keep in mind the following:
     - After importing a large set of photos, the album should be refreshed, as it may take several seconds for the operation to finish.
 
 
+# Building from source
+
+  The source may be obtained either through `git clone https://gitlab.com/Isometricmap/PhotoCrypt.git`, or by downloading and unzipping the file.
+
+    - Open the source with android studio, then click `Build` -> `Build APK(s)`.
+
+# Dowloading the APK
+
+  If building from source is not an option, you can use the APK [here https://gitlab.com/Isometricmap/CryptoGallery_APK ]. It includes both the signed APK, as well as the signing certificate fingerprints.
+
 # Planned
 
  - Exporting photos in an encrypted state, including a shell script to automatically handle decryption
