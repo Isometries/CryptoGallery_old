@@ -10,9 +10,10 @@ PhotoCrypt3.iml
 .idea/*
 
 local.properties
-
+./app/release
 *.log
 
+./directory
 .gradle/4.1
 captures
 build/*
